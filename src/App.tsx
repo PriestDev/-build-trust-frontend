@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
@@ -14,6 +14,30 @@ import BrowseDevelopers from "./pages/BrowseDevelopers";
 import DeveloperProfile from "./pages/DeveloperProfile";
 import ClientDashboard from "./pages/ClientDashboard";
 import DeveloperDashboard from "./pages/DeveloperDashboard";
+import SuperAdminDashboard from "./pages/SuperAdminDashboard";
+import AdminUsers from "./pages/AdminUsers";
+import AdminAnalytics from "./pages/AdminAnalytics";
+import AdminReports from "./pages/AdminReports";
+import AdminSettings from "./pages/AdminSettings";
+import AdminSettingsGeneral from "./pages/AdminSettingsGeneral";
+import AdminSettingsSecurity from "./pages/AdminSettingsSecurity";
+import AdminSettingsPassword from "./pages/AdminSettingsPassword";
+import AdminSettingsEmail from "./pages/AdminSettingsEmail";
+import AdminSettingsPayment from "./pages/AdminSettingsPayment";
+import AdminSettingsNotifications from "./pages/AdminSettingsNotifications";
+import AdminSettingsAPI from "./pages/AdminSettingsAPI";
+import AdminSettingsDatabase from "./pages/AdminSettingsDatabase";
+import AdminSettingsLogs from "./pages/AdminSettingsLogs";
+import AdminSettingsMaintenance from "./pages/AdminSettingsMaintenance";
+import AdminSupport from "./pages/AdminSupport";
+import AdminMessages from "./pages/AdminMessages";
+import AdminSupportTicketDetail from "./pages/AdminSupportTicketDetail";
+import AdminSupportCreate from "./pages/AdminSupportCreate";
+import AdminSupportCategories from "./pages/AdminSupportCategories";
+import AdminSupportAnalytics from "./pages/AdminSupportAnalytics";
+import AdminSupportSettings from "./pages/AdminSupportSettings";
+import AdminUserView from "./pages/AdminUserView";
+import AdminUserEdit from "./pages/AdminUserEdit";
 import Messages from "./pages/Messages";
 import Payments from "./pages/Payments";
 import Projects from "./pages/Projects";
@@ -33,7 +57,6 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
@@ -44,6 +67,30 @@ const App = () => (
             <Route path="/developer/:id" element={<DeveloperProfile />} />
             <Route path="/client-dashboard" element={<ClientDashboard />} />
             <Route path="/developer-dashboard" element={<DeveloperDashboard />} />
+            <Route path="/super-admin-dashboard" element={<SuperAdminDashboard />} />
+            <Route path="/admin/users" element={<AdminUsers />} />
+            <Route path="/admin/users/:userId" element={<AdminUserView />} />
+            <Route path="/admin/users/:userId/edit" element={<AdminUserEdit />} />
+            <Route path="/admin/analytics" element={<AdminAnalytics />} />
+            <Route path="/admin/reports" element={<AdminReports />} />
+            <Route path="/admin/settings" element={<AdminSettings />} />
+            <Route path="/admin/settings/general" element={<AdminSettingsGeneral />} />
+            <Route path="/admin/settings/security" element={<AdminSettingsSecurity />} />
+            <Route path="/admin/settings/password" element={<AdminSettingsPassword />} />
+            <Route path="/admin/settings/email" element={<AdminSettingsEmail />} />
+            <Route path="/admin/settings/payment" element={<AdminSettingsPayment />} />
+            <Route path="/admin/settings/notifications" element={<AdminSettingsNotifications />} />
+            <Route path="/admin/settings/api" element={<AdminSettingsAPI />} />
+            <Route path="/admin/settings/database" element={<AdminSettingsDatabase />} />
+            <Route path="/admin/settings/logs" element={<AdminSettingsLogs />} />
+            <Route path="/admin/settings/maintenance" element={<AdminSettingsMaintenance />} />
+            <Route path="/admin/support" element={<AdminSupport />} />
+            <Route path="/admin/support/ticket/:ticketId" element={<AdminSupportTicketDetail />} />
+            <Route path="/admin/support/create" element={<AdminSupportCreate />} />
+            <Route path="/admin/support/categories" element={<AdminSupportCategories />} />
+            <Route path="/admin/support/analytics" element={<AdminSupportAnalytics />} />
+            <Route path="/admin/support/settings" element={<AdminSupportSettings />} />
+            <Route path="/admin/messages" element={<AdminMessages />} />
             <Route path="/messages" element={<Messages />} />
             <Route path="/payments" element={<Payments />} />
             <Route path="/projects" element={<Projects />} />
@@ -56,7 +103,6 @@ const App = () => (
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </BrowserRouter>
       </TooltipProvider>
     </AuthProvider>
   </QueryClientProvider>

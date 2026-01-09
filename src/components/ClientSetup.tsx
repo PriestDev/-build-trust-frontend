@@ -87,8 +87,8 @@ const ClientSetup = ({ onExit }: ClientSetupProps) => {
     }));
   };
 
-  const handleGoToDashboard = () => {
-    navigate('/client-dashboard');
+  const browse = () => {
+    navigate('/browse');
   };
 
   const renderCurrentStep = () => {
@@ -217,15 +217,16 @@ const ClientSetup = ({ onExit }: ClientSetupProps) => {
 
           <div className="space-y-3 sm:space-y-4">
             <Button
-              onClick={handleGoToDashboard}
+              onClick={() => { onExit(); navigate('/browse'); }}
               className="w-full bg-blue-600 hover:bg-blue-700 text-sm sm:text-base py-2 sm:py-3"
             >
               Browse Developers
             </Button>
 
             <Button
+              type="button"
               variant="outline"
-              onClick={() => navigate('/')}
+              onClick={() => { onExit(); navigate('/'); }}
               className="w-full text-sm sm:text-base py-2 sm:py-3"
             >
               Return to Homepage

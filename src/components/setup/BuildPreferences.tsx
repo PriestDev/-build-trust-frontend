@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface BuildPreferencesProps {
   data: Record<string, unknown>;
@@ -7,20 +7,38 @@ interface BuildPreferencesProps {
 }
 
 const BuildPreferences = ({ data, onChange, userType = 'developer' }: BuildPreferencesProps) => {
-  const [preferences, setPreferences] = useState({
-    projectTypes: [] as string[],
-    preferredCities: [] as string[],
-    budgetRange: '',
-    workingStyle: '',
-    availability: '',
-    specializations: [] as string[],
-    ...data
+  const [preferences, setPreferences] = useState(() => {
+    const d = (data || {}) as Record<string, unknown>;
+    return {
+      projectTypes: (d['project_types'] as string[]) ?? (d['projectTypes'] as string[]) ?? [],
+      preferredCities: (d['preferred_cities'] as string[]) ?? (d['preferredCities'] as string[]) ?? [],
+      budgetRange: (d['budget_range'] as string) ?? (d['budgetRange'] as string) ?? '',
+      workingStyle: (d['working_style'] as string) ?? (d['workingStyle'] as string) ?? '',
+      availability: (d['availability'] as string) ?? '',
+      specializations: (d['specializations'] as string[]) ?? (d['specializations'] as string[]) ?? [],
+    };
   });
 
-  // Sync local state with parent
+  const lastEmittedRef = useRef<string | null>(null);
+
+  const mapToDb = (p: typeof preferences) => ({
+    project_types: p.projectTypes,
+    preferred_cities: p.preferredCities,
+    budget_range: p.budgetRange,
+    working_style: p.workingStyle,
+    availability: p.availability,
+    specializations: p.specializations,
+  });
+
+  // Sync local state with parent (emit DB-shaped payload) but avoid infinite loops by only emitting when payload changes
   useEffect(() => {
-    onChange(preferences);
-  }, [preferences]);  // Remove onChange from dependencies
+    const mapped = mapToDb(preferences);
+    const serialized = JSON.stringify(mapped);
+    if (lastEmittedRef.current !== serialized) {
+      lastEmittedRef.current = serialized;
+      onChange(mapped);
+    }
+  }, [preferences, onChange]);
 
   const updatePreferences = (field: string, value: unknown) => {
     const newPreferences = { ...preferences, [field]: value };
